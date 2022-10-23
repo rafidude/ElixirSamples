@@ -1,14 +1,23 @@
 defmodule Example.SimpleRoutes do
   use Plug.Router
 
+  alias Example.Plug.VerifyRequest
+
+  plug(Plug.Parsers, parsers: [:urlencoded, :multipart])
+  plug(VerifyRequest, fields: ["content", "mimetype"], paths: ["/upload"])
+
   plug(:match)
   plug(:dispatch)
 
-  get "/hello" do
-    send_resp(conn, 200, "world")
+  get "/" do
+    send_resp(conn, 200, "Welcome")
+  end
+
+  get "/upload" do
+    send_resp(conn, 201, "Uploaded")
   end
 
   match _ do
-    send_resp(conn, 404, "Page not found!")
+    send_resp(conn, 404, "404 Page not found!")
   end
 end
