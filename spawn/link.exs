@@ -9,6 +9,7 @@ defmodule Link3 do
   def sad_function do
     sleep 500
     exit(:boom)
+    # raise "oops"
   end
   def run do
     Process.flag(:trap_exit, true)
