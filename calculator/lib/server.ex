@@ -25,6 +25,10 @@ defmodule Calculator.Server do
   def handle_cast(:clear, _state) do
     {:noreply, 0}
   end
+  def handle_info(:negate, state) do
+    IO.puts "negating #{state}"
+    {:noreply, Core.negate(state)}
+  end
   def handle_call(:state, _from, state) do
     {:reply, state, state}
   end
