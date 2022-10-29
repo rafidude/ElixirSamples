@@ -1,6 +1,10 @@
 defmodule Sequence.Server do
   use GenServer
   alias Sequence.Impl
+  @me __MODULE__
+  def start_link(initial_number) do
+    GenServer.start_link(__MODULE__, initial_number, name: @me)
+  end
 
   def init(initial_number) do
     {:ok, initial_number}
