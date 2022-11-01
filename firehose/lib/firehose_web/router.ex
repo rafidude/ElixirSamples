@@ -25,6 +25,7 @@ defmodule FirehoseWeb.Router do
     pipe_through :api
 
     get "/roll", RollController, :index
+    get "/roll/:num_dice", RollController, :show
   end
 
   # Enables LiveDashboard only for development
