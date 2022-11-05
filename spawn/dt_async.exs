@@ -1,6 +1,6 @@
 defmodule DTAsync do
   def slowf id do
-    Process.sleep 2000
+    Process.sleep 1000 + :rand.uniform 1000
     "res: #{id}"
   end
 
@@ -12,12 +12,15 @@ defmodule DTAsync do
   def getres do
     receive do
       {:res, res} ->
+        IO.puts res
         res
     end
   end
 
   def getqueryres do
     Enum.map(1..5, &asyncf("query #{&1}"))
-    Enum.map(1..5, fn _ -> getres() end)
+    IO.inspect Enum.map(1..5, fn _ -> getres() end)
   end
 end
+
+DTAsync.getqueryres()
