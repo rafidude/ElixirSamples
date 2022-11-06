@@ -1,4 +1,4 @@
-defmodule PeopleServer do
+defmodule PeopleSpawnServer do
   def start do
     spawn(fn ->
       Process.register(self(), :people_server)

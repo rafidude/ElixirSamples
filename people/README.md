@@ -1,6 +1,24 @@
 # People
 
-**TODO: Add description**
+```
+import People
+ p = new()
+ p = create(p, %{name: "John", age: 24})
+ p = create(p, %{name: "Jane", age: 23})
+ p = create(p, %{name: "Mary", age: 23})
+ read(23)
+```
+
+# Server
+
+```
+import Server
+{:ok, pid} = start
+add_person pid, %{name: "John", age: 24}
+add_person pid, %{name: "Jane", age: 23}
+add_person pid, %{name: "Mary", age: 23}
+people_by_age pid, 23
+```
 
 ## Installation
 
@@ -18,4 +36,3 @@ end
 Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_doc)
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at <https://hexdocs.pm/people>.
-

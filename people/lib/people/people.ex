@@ -1,5 +1,6 @@
 defmodule People do
   defstruct auto_id: 1, data: %{}
+
   def new() do
     %People{}
   end
@@ -16,10 +17,6 @@ defmodule People do
     |> Enum.map(fn {_, v} -> v end)
   end
 
-  def delete(people, id) do
-    %People{ people | data: Map.delete(people.data, id)}
-  end
-
   def update(people, %{} = person) do
     update(people, person.id, person)
   end
@@ -33,4 +30,9 @@ defmodule People do
         %People{people | data: new_data }
     end
   end
+
+  def delete(people, id) do
+    %People{ people | data: Map.delete(people.data, id)}
+  end
+
 end

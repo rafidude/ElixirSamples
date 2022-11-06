@@ -1,16 +1,16 @@
-defmodule PeopleGenServer do
+defmodule Server do
   use GenServer
 
   def start do
-    GenServer.start(PeopleGenServer, nil)
+    GenServer.start(Server, nil)
   end
 
   def add_person(people_server, person) do
     GenServer.cast(people_server, {:add_person, person})
   end
 
-  def entries(people_server, date) do
-    GenServer.call(people_server, {:entries, date})
+  def people_by_age(people_server, age) do
+    GenServer.call(people_server, {:entries, age})
   end
 
   @impl GenServer
