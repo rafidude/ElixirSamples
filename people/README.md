@@ -20,6 +20,21 @@ add_person pid, %{name: "Mary", age: 23}
 people_by_age pid, 23
 ```
 
+# Cache
+
+```
+import Cache
+{:ok, c} = start
+
+l1 = server_process c, "l1"
+l2 = server_process c, "l2"
+
+Server.add_person(l1, %{name: "John", age: 24})
+Server.add_person(l1, %{name: "Jane", age: 24})
+
+Server.people_by_age(l1, 24)
+```
+
 ## Installation
 
 If [available in Hex](https://hex.pm/docs/publish), the package can be installed
