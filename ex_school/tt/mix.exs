@@ -1,9 +1,9 @@
-defmodule People.MixProject do
+defmodule Tt.MixProject do
   use Mix.Project
 
   def project do
     [
-      app: :people,
+      app: :tt,
       version: "0.1.0",
       elixir: "~> 1.14",
       start_permanent: Mix.env() == :prod,
@@ -15,7 +15,7 @@ defmodule People.MixProject do
   def application do
     [
       extra_applications: [:logger],
-      mod: {People.Application, []}
+      mod: {Tt.Application, []}
     ]
   end
 

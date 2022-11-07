@@ -1,8 +1,8 @@
-defmodule Queue do
+defmodule SimpleQueue.Server do
   use GenServer
 
   # Client Process Calls
-  def start(state \\ []) do
+  def start_link(state \\ []) do
     GenServer.start_link(__MODULE__, state, name: __MODULE__)
   end
 
