@@ -1,10 +1,10 @@
-import Server
+import People.Server
 defmodule ServerTest do
   use ExUnit.Case
-  doctest Server
+  doctest People.Server
 
   test "create person on server" do
-    {:ok, pid} = start()
+    {:ok, pid} = start("one")
     add_person pid, %{name: "John", age: 24}
     people_23 = people_by_age pid, 23
     people_24 = people_by_age pid, 24
@@ -13,7 +13,7 @@ defmodule ServerTest do
   end
 
   test "create people on server" do
-    {:ok, pid} = start()
+    {:ok, pid} = start("three")
     add_person pid, %{name: "John", age: 24}
     add_person pid, %{name: "Jane", age: 23}
     add_person pid, %{name: "Mary", age: 23}

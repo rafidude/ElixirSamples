@@ -1,14 +1,15 @@
-import Cache
-import Server
+import People.ServiceRegistry
+import People.Server
 
-defmodule CacheTest do
+defmodule ServiceRegistryTest do
   use ExUnit.Case
-  doctest Server
+  doctest People.ServiceRegistry
 
-  test "create person on cache" do
-    {:ok, cache_id} = Cache.start()
-    p1 = server_process cache_id, "p1"
-    p2 = server_process cache_id, "p2"
+  test "create person via service registry" do
+    # {:ok, sr_id} = People.ServiceRegistry.start()
+    Supervisor.start_link([People.ServiceRegistry], strategy: :one_for_one)
+    p1 = server_process "p1"
+    p2 = server_process "p2"
 
     add_person p1, %{name: "John", age: 24}
     add_person p2, %{name: "Jane", age: 24}

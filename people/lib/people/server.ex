@@ -1,8 +1,9 @@
-defmodule Server do
+defmodule People.Server do
   use GenServer
 
-  def start do
-    GenServer.start(Server, nil)
+  def start(name) do
+    IO.puts("Starting to-do server for #{name}.")
+    GenServer.start(People.Server, nil)
   end
 
   def add_person(people_server, person) do

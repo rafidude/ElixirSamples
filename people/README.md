@@ -23,16 +23,28 @@ people_by_age pid, 23
 # Cache
 
 ```
-import Cache
-{:ok, c} = start
+import People.ServiceRegistry
+{:ok, _} = start_link
 
-l1 = server_process c, "l1"
-l2 = server_process c, "l2"
+l1 = server_process "l1"
+l2 = server_process "l2"
 
 Server.add_person(l1, %{name: "John", age: 24})
 Server.add_person(l1, %{name: "Jane", age: 24})
 
 Server.people_by_age(l1, 24)
+```
+
+```
+Supervisor.start_link([People.ServiceRegistry], strategy: :one_for_one)
+import People.ServiceRegistry
+bl = server_process "bob's list"
+al = server_process "alice's list"
+sr_pid = Process.whereis(People.ServiceRegistry)
+
+:observer.start()
+
+Process.exit(sr_pid, :kill)
 ```
 
 ## Installation

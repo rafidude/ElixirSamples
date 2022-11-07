@@ -11,9 +11,16 @@ defmodule People do
     %People{people | auto_id: people.auto_id + 1, data: new_data }
   end
 
+  # read people by their ages
   def read(people, age) do
     people.data
     |> Enum.filter(fn {_, v} -> v.age == age end)
+    |> Enum.map(fn {_, v} -> v end)
+  end
+
+  # read all people
+  def read(people) do
+    people.data
     |> Enum.map(fn {_, v} -> v end)
   end
 

@@ -1,12 +1,13 @@
-defmodule Cache do
+defmodule People.ServiceRegistry do
   use GenServer
 
-  def start do
-    GenServer.start(__MODULE__, nil)
+  def start_link(_) do
+    IO.puts("Starting People.ServiceRegistry.")
+    GenServer.start(__MODULE__, nil, name: __MODULE__)
   end
 
-  def server_process(cache_pid, list_name) do
-    GenServer.call(cache_pid, {:server_process, list_name})
+  def server_process(list_name) do
+    GenServer.call(__MODULE__, {:server_process, list_name})
   end
 
   @impl GenServer
@@ -21,7 +22,7 @@ defmodule Cache do
         {:reply, server, servers}
 
       :error ->
-        {:ok, new_server} = Server.start()
+        {:ok, new_server} = People.Server.start(list_name)
 
         {
           :reply,
