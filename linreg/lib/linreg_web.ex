@@ -90,7 +90,7 @@ defmodule LinregWeb do
 
       # Shortcut for generating JS commands
       alias Phoenix.LiveView.JS
-
+      import Linreg.Math, only: [map: 5]
       # Routes generation with the ~p sigil
       unquote(verified_routes())
     end
