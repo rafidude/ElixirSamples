@@ -31,9 +31,10 @@ defmodule LinregWeb.RegressionLive do
     |> update_prediction()
   end
 
-  defp learn(%{assigns: %{data: data, model: model}} = socket) do
+  defp learn(%{assigns: %{data: data, model: _model}} = socket) do
     if length(data.points) >= 2 do
-      model = Model.train(model, data, learning_rate: 0.1, epochs: 500)
+      # model = Model.train(model, data, learning_rate: 0.1, epochs: 500)
+      model = Model.derive_model(data)
       assign(socket, model: model)
     else
       socket

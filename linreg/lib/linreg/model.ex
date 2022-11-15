@@ -15,9 +15,9 @@ defmodule Linreg.Model do
 
 
   def derive_model(%Data{points: points}) do
-    # calculates slope and yintercept to derive model for y = m * x + c
+    # calculates slope and yintercept to derive model for y = m * x + b
     # Slope m = Sum( (xi - x.mean) * (yi - y.mean) )  / Sum( (xi - x.mean) **2)
-    # Y-Intercept c = y.mean - m * x.mean
+    # Y-Intercept b = y.mean - m * x.mean
 
     n = Enum.count(points)
     all_x = Enum.map(points, fn {x, _} -> x end)
@@ -27,7 +27,7 @@ defmodule Linreg.Model do
     xi_minus_xmean_squared = Enum.map(points, fn {x, _} -> (x - x_mean) ** 2.0 end)
     xi_minus_xmean_prod_yi_minus_ymean = Enum.map(points, fn {x, y} -> (x - x_mean) * (y - y_mean) end)
     m = Enum.sum( xi_minus_xmean_prod_yi_minus_ymean ) / Enum.sum( xi_minus_xmean_squared )
-    b = y_mean - m * y_mean
+    b = y_mean - m * x_mean
     %Model{m: m, b: b}
   end
 
