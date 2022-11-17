@@ -1,0 +1,19 @@
+<div class="flex flex-col items-center justify-center h-screen bg-gray-200">
+    <h1 class="text-5xl font-medium text-gray-700">List Counter</h1>
+    <br/>
+    <br/>
+    <br/>
+    <br/>
+    <div id="thermostat" phx-window-keyup="update_temp" class="m-5 text-4xl">
+        <section>
+            Counter 1: <%= @number_list["a"] %>
+            <button phx-click="dec" phx-value-id="a" class="text-white bg-indigo-600 px-6 py-4 rounded hover:bg-indigo-900">-</button>
+            <button phx-click="inc" phx-value-id="a" class="text-white bg-indigo-600 px-6 py-4 rounded hover:bg-indigo-900">+</button>
+        </section>
+        <section>
+            Counter 2: <%= @number_list["b"] %>
+            <button phx-click="dec" phx-value-id="b" class="text-white bg-indigo-600 px-6 py-4 rounded hover:bg-indigo-900">-</button>
+            <button phx-click="inc" phx-value-id="b" class="text-white bg-indigo-600 px-6 py-4 rounded hover:bg-indigo-900">+</button>
+        </section>
+    </div>
+</div>

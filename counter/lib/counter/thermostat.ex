@@ -1,4 +1,4 @@
-defmodule Counter.Counter do
+defmodule Counter.Thermostat do
   use Agent
 
   def start_link(initial_value) do
@@ -9,11 +9,12 @@ defmodule Counter.Counter do
     Agent.get(__MODULE__, & &1)
   end
 
-  def increment do
+  def inc_temperature do
     Agent.update(__MODULE__, &(&1 + 1))
   end
 
-  def decrement do
-    Agent.update(__MODULE__, &(max(0, &1 - 1)))
+  def dec_temperature do
+    # Agent.update(__MODULE__, &(max(0, &1 - 1)))
+    Agent.update(__MODULE__, &(&1 - 1))
   end
 end

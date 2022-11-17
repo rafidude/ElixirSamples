@@ -18,6 +18,8 @@ defmodule CounterWeb.Router do
     pipe_through :browser
 
     live "/", PageLive
+    live "/temperature", TemperatureLive
+    live "/listcounter", ListCounterLive
   end
 
   # Other scopes may use custom stacks.

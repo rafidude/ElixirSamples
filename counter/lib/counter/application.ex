@@ -9,6 +9,8 @@ defmodule Counter.Application do
   def start(_type, _args) do
     children = [
       {Counter.Counter, 0},
+      {Counter.Thermostat, 0},
+      Counter.ListCounter,
       # Start the Telemetry supervisor
       CounterWeb.Telemetry,
       # Start the PubSub system
