@@ -15,11 +15,11 @@ defmodule Counter.ListCounter do
     put(key, val)
   end
 
-  def get(key) do
+  defp get(key) do
     Agent.get(__MODULE__, &Map.get(&1, key))
   end
 
-  def put(key, val) do
+  defp put(key, val) do
     Agent.update(__MODULE__, &Map.put(&1, key, val))
   end
 
