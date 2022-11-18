@@ -1,0 +1,40 @@
+<.header>
+  Listing Employees
+  <:actions>
+    <.link patch={~p"/employees/new"}>
+      <.button>New Employee</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="employees" rows={@employees} row_click={&JS.navigate(~p"/employees/#{&1}")}>
+  <:col :let={employee} label="Name"><%= employee.name %></:col>
+  <:col :let={employee} label="Age"><%= employee.age %></:col>
+  <:action :let={employee}>
+    <div class="sr-only">
+      <.link navigate={~p"/employees/#{employee}"}>Show</.link>
+    </div>
+    <.link patch={~p"/employees/#{employee}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={employee}>
+    <.link phx-click={JS.push("delete", value: %{id: employee.id})} data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="employee-modal"
+  show
+  on_cancel={JS.navigate(~p"/employees")}
+>
+  <.live_component
+    module={FormvWeb.EmployeeLive.FormComponent}
+    id={@employee.id || :new}
+    title={@page_title}
+    action={@live_action}
+    employee={@employee}
+    navigate={~p"/employees"}
+  />
+</.modal>
