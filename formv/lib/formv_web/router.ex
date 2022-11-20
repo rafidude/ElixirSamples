@@ -17,8 +17,8 @@ defmodule FormvWeb.Router do
   scope "/", FormvWeb do
     pipe_through :browser
 
-    get "/", PageController, :home
-    # live "/", FormvLive
+    # get "/", PageController, :home
+    live "/", PageLive
     live "/employees", EmployeeLive.Index, :index
     live "/employees/new", EmployeeLive.Index, :new
     live "/employees/:id/edit", EmployeeLive.Index, :edit
