@@ -4,10 +4,10 @@ defmodule Mod do
     my_var = __MODULE__
     quote do
       IO.puts "definfo :: Caller's context #{__MODULE__}"
-      IO.puts "My var: #{unquote(my_var)}"
+      IO.puts "My var 1: #{unquote(my_var)}"
       def friendly_info do
         IO.puts "friend_info :: Module name #{__MODULE__}"
-        IO.puts "My var: #{unquote(my_var)}"
+        IO.puts "My var 2: #{unquote(my_var)}"
       end
     end
   end

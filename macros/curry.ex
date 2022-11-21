@@ -22,10 +22,20 @@ defmodule Curry do
       unquote(expression)
     end
   end
+
+  def show_generated_code(quoted) do
+    quoted |> Macro.expand_once(__ENV__) |> Macro.to_string |> IO.puts
+  end
 end
 
 defmodule Example do
   import Curry
 
-  defc sum(a, b), do: a + b
+  defc sum2(a, b), do: a + b
+
+  quoted = quote do
+    defc sum(a, b), do: a + b
+  end
+  show_generated_code(quoted)
+
 end
