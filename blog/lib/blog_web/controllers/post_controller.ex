@@ -3,15 +3,16 @@ defmodule BlogWeb.PostController do
 
   alias Blog.Posts
   alias Blog.Posts.Post
+  alias Blog.Comments.Comment
 
   def index(conn, _params) do
     posts = Posts.list_posts()
-    render(conn, "index.html", posts: posts)
+    render(conn, :index, posts: posts)
   end
 
   def new(conn, _params) do
     changeset = Posts.change_post(%Post{})
-    render(conn, "new.html", changeset: changeset)
+    render(conn, :new, changeset: changeset)
   end
 
   def create(conn, %{"post" => post_params}) do
@@ -19,22 +20,27 @@ defmodule BlogWeb.PostController do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post created successfully.")
-        |> redirect(to: Routes.post_path(conn, :show, post))
+        |> redirect(to: ~p"/posts/#{post}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "new.html", changeset: changeset)
+        render(conn, :new, changeset: changeset)
     end
   end
 
   def show(conn, %{"id" => id}) do
-    post = Posts.get_post!(id)
-    render(conn, "show.html", post: post)
+    post =
+      id
+      |> Posts.get_post!
+      |> Repo.preload([:comments])
+
+    changeset = Comment.changeset(%Comment{}, %{})
+    render(conn, "show.html", post: post, changeset: changeset)
   end
 
   def edit(conn, %{"id" => id}) do
     post = Posts.get_post!(id)
     changeset = Posts.change_post(post)
-    render(conn, "edit.html", post: post, changeset: changeset)
+    render(conn, :edit, post: post, changeset: changeset)
   end
 
   def update(conn, %{"id" => id, "post" => post_params}) do
@@ -44,10 +50,10 @@ defmodule BlogWeb.PostController do
       {:ok, post} ->
         conn
         |> put_flash(:info, "Post updated successfully.")
-        |> redirect(to: Routes.post_path(conn, :show, post))
+        |> redirect(to: ~p"/posts/#{post}")
 
       {:error, %Ecto.Changeset{} = changeset} ->
-        render(conn, "edit.html", post: post, changeset: changeset)
+        render(conn, :edit, post: post, changeset: changeset)
     end
   end
 
@@ -57,7 +63,7 @@ defmodule BlogWeb.PostController do
 
     conn
     |> put_flash(:info, "Post deleted successfully.")
-    |> redirect(to: Routes.post_path(conn, :index))
+    |> redirect(to: ~p"/posts")
   end
 
   def add_comment(conn, %{"comment" => comment_params, "post_id" => post_id}) do
@@ -65,16 +71,16 @@ defmodule BlogWeb.PostController do
       post_id
       |> Posts.get_post!()
       |> Repo.preload([:comments])
-      
     case Posts.add_comment(post_id, comment_params) do
       {:ok, _comment} ->
         conn
-        |> put_flash(:info, "Comment added :)")
+        |> put_flash(:info, "Added comment!")
         |> redirect(to: Routes.post_path(conn, :show, post))
       {:error, _error} ->
         conn
-        |> put_flash(:error, "Comment not added :(")
+        |> put_flash(:error, "Oops! Couldn't add comment!")
         |> redirect(to: Routes.post_path(conn, :show, post))
     end
   end
+
 end

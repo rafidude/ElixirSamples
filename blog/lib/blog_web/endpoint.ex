@@ -7,7 +7,8 @@ defmodule BlogWeb.Endpoint do
   @session_options [
     store: :cookie,
     key: "_blog_key",
-    signing_salt: "qQEJ4Irg"
+    signing_salt: "IiSpCMiW",
+    same_site: "Lax"
   ]
 
   socket "/live", Phoenix.LiveView.Socket, websocket: [connect_info: [session: @session_options]]
@@ -20,7 +21,7 @@ defmodule BlogWeb.Endpoint do
     at: "/",
     from: :blog,
     gzip: false,
-    only: ~w(assets fonts images favicon.ico robots.txt)
+    only: BlogWeb.static_paths()
 
   # Code reloading can be explicitly enabled under the
   # :code_reloader configuration of your endpoint.

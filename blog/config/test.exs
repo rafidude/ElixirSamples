@@ -17,14 +17,17 @@ config :blog, Blog.Repo,
 # you can enable the server option below.
 config :blog, BlogWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "1/HpWk5BZrXqhXNJS4bD4HEib019NoGyTlV2Vdm810/0PBc72ZoNKcC1jYj36nap",
+  secret_key_base: "okZ+gcjTcIWNfk5X0DIuIseAcwJWtSYz/ZOGGSvpQmCiUgYsBa/M29n6yx2ah0kW",
   server: false
 
 # In test we don't send emails.
 config :blog, Blog.Mailer, adapter: Swoosh.Adapters.Test
 
+# Disable swoosh api client as it is only required for production adapters.
+config :swoosh, :api_client, false
+
 # Print only warnings and errors during test
-config :logger, level: :warn
+config :logger, level: :warning
 
 # Initialize plugs at runtime for faster test compilation
 config :phoenix, :plug_init_mode, :runtime

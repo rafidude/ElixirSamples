@@ -7,6 +7,7 @@ defmodule Blog.Posts do
   alias Blog.Repo
 
   alias Blog.Posts.Post
+  alias Blog.Comments
 
   @doc """
   Returns the list of posts.
@@ -101,4 +102,11 @@ defmodule Blog.Posts do
   def change_post(%Post{} = post, attrs \\ %{}) do
     Post.changeset(post, attrs)
   end
+
+  def add_comment(post_id, comment_params) do
+    comment_params
+    |> Map.put("post_id", post_id)
+    |> Comments.create_comment()
+  end
+
 end
