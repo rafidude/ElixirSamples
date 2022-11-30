@@ -1,7 +1,7 @@
 defmodule Sender do
   # simulate error
   def send_email("b") do
-    raise "Oops, couldn't send email to b!"
+    :error
   end
 
   # Assume a heavy process that takes 3 seconds
@@ -15,7 +15,7 @@ defmodule Sender do
     Enum.each(emails, &send_email(&1))
   end
 
-  def notify_all_no_result(emails) do
+  def notify_all_task_start(emails) do
     Enum.each(emails, fn email ->
       Task.start(fn ->
         send_email(email)
@@ -23,7 +23,7 @@ defmodule Sender do
     end)
   end
 
-  def notify_all_async(emails) do
+  def notify_all_task_async(emails) do
     emails
     |> Enum.map(fn email ->
       Task.async(fn -> send_email(email) end)
@@ -31,13 +31,13 @@ defmodule Sender do
     |> Enum.map(&Task.await/1)
   end
 
-  def notify_all_no_supervisor(emails) do
+  def notify_all_task_async_stream(emails) do
     emails
     |> Task.async_stream(&send_email/1)
     |> Enum.to_list()
   end
 
-  def notify_all(emails) do
+  def notify_all_task_supervisor(emails) do
     Sender.EmailTaskSupervisor
     |> Task.Supervisor.async_stream_nolink(emails, &send_email/1)
     |> Enum.to_list()
