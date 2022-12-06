@@ -1,4 +1,31 @@
 defmodule TodoList do
+  @moduledoc """
+  Documentation for `TodoList`.
+  """
+
+  @doc """
+  Todolist CSV import file.
+
+  ## Examples
+
+      iex(3)> _todo_list = TodoList.CsvImporter.import_map("todos.csv")
+      [
+        %{date: ~D[2018-12-19], title: "Dentist"},
+        %{date: ~D[2018-12-20], title: "Shopping"},
+        %{date: ~D[2018-12-19], title: "Movies"}
+      ]
+
+      iex(1)> _todo_list = TodoList.CsvImporter.import("todos.csv")
+      %TodoList{
+        auto_id: 4,
+        entries: %{
+          1 => %{date: ~D[2018-12-19], id: 1, title: "Dentist"},
+          2 => %{date: ~D[2018-12-20], id: 2, title: "Shopping"},
+          3 => %{date: ~D[2018-12-19], id: 3, title: "Movies"}
+        }
+      }
+
+  """
   defstruct auto_id: 1, entries: %{}
 
   def new(entries \\ []) do
