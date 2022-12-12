@@ -3,20 +3,20 @@ defmodule Calculator do
     spawn(fn -> loop(0) end)
   end
 
+  # Client process calls
   def value(server_pid) do
     send(server_pid, {:value, self()})
-
     receive do
       {:response, value} ->
         value
     end
   end
-
   def add(server_pid, value), do: send(server_pid, {:add, value})
   def sub(server_pid, value), do: send(server_pid, {:sub, value})
   def mul(server_pid, value), do: send(server_pid, {:mul, value})
   def div(server_pid, value), do: send(server_pid, {:div, value})
 
+  # Server process
   defp loop(current_value) do
     new_value =
       receive do
