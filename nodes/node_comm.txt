@@ -1,0 +1,13 @@
+iex --name one@127.0.0.1
+iex --name two@127.0.0.1
+Node.connect :"two@127.0.0.1"
+Node.list()
+
+defmodule N1 do
+def say_hi do
+IO.puts "Hi from #{node}"
+end
+end
+
+Node.spawn_link(:"one@127.0.0.1", fn -> N1.say_hi end)
+
