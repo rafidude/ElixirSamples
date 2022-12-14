@@ -42,7 +42,7 @@ defmodule Functionality do
   end
 end
 
-Functionality.run_loop()
+# Functionality.run_loop()
 # FixIt
 # pid = spawn Functionality.receive_msgs()
 # send pid, :hello
