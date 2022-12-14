@@ -13,6 +13,12 @@ defmodule Assertion do
     end
   end
 
+  # defmacro assert({op, _, [lhs, rhs]}) do
+  #   quote bind_quoted: [op: op, lhs: lhs, rhs: rhs] do
+
+  #   end
+  # end
+
   defmacro assert({:>, _, [lhs, rhs]}) do
     quote do
       lhs = unquote(lhs)
