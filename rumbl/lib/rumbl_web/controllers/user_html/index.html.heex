@@ -1,0 +1,25 @@
+<div class="px-4 py-10 sm:py-28 sm:px-6 lg:px-8 xl:py-32 xl:px-28">
+  <div class="mx-auto max-w-xl lg:mx-0">
+    <p class="mt-4 text-[2rem] font-semibold leading-10 tracking-tighter text-zinc-900">
+      Index Page
+    </p>
+    <div class="flex">
+      <table class="table-auto">
+        <thead>
+          <tr>
+            <th>User</th>
+            <th>Id</th>
+          </tr>
+        </thead>
+        <tbody>
+        <%= for user <- @users do %>
+          <tr>
+            <td><b><%= first_name(user) %></b> (<%= user.id %>)</td>
+            <td><.link href={~p"/users/#{user.id}"}>View</.link></td>
+          </tr>
+        <% end %>
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
