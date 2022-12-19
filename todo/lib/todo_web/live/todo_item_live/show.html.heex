@@ -1,0 +1,26 @@
+<.header>
+  Todo item <%= @todo_item.id %>
+  <:subtitle>This is a todo_item record from your database.</:subtitle>
+  <:actions>
+    <.link patch={~p"/todo_items/#{@todo_item}/show/edit"} phx-click={JS.push_focus()}>
+      <.button>Edit todo_item</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.list>
+  <:item title="Text"><%= @todo_item.text %></:item>
+</.list>
+
+<.back navigate={~p"/todo_items"}>Back to todo_items</.back>
+
+<.modal :if={@live_action == :edit} id="todo_item-modal" show on_cancel={JS.patch(~p"/todo_items/#{@todo_item}")}>
+  <.live_component
+    module={TodoWeb.TodoItemLive.FormComponent}
+    id={@todo_item.id}
+    title={@page_title}
+    action={@live_action}
+    todo_item={@todo_item}
+    navigate={~p"/todo_items/#{@todo_item}"}
+  />
+</.modal>
