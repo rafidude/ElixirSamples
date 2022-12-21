@@ -1,8 +1,5 @@
 import Config
 
-# Only in tests, remove the complexity from the password hashing algorithm
-config :bcrypt_elixir, :log_rounds, 1
-
 # Configure your database
 #
 # The MIX_TEST_PARTITION environment variable can be used
@@ -20,7 +17,7 @@ config :pento, Pento.Repo,
 # you can enable the server option below.
 config :pento, PentoWeb.Endpoint,
   http: [ip: {127, 0, 0, 1}, port: 4002],
-  secret_key_base: "3UoWxOk/uPRSLxZ7D2kRNl0oRTdddc5x8Ls/Y9jYzJ9pFNzQ1GPnwoiwPlE8oJr9",
+  secret_key_base: "gRKCIAMUrNh9R0q5lOSQCQkV/Pr7FSgVq6qanxP2untFycAiSykh/CCklx0VPjAY",
   server: false
 
 # In test we don't send emails.

@@ -7,36 +7,36 @@
 # General application configuration
 import Config
 
-config :pento,
-  ecto_repos: [Pento.Repo]
-
 # Configures the endpoint
-config :pento, PentoWeb.Endpoint,
+config :b1, B1Web.Endpoint,
   url: [host: "localhost"],
-  render_errors: [view: PentoWeb.ErrorView, accepts: ~w(html json), layout: false],
-  pubsub_server: Pento.PubSub,
-  live_view: [signing_salt: "ilhrz3fO"]
-
-# Configures the mailer
-#
-# By default it uses the "Local" adapter which stores the emails
-# locally. You can see the emails in your browser, at "/dev/mailbox".
-#
-# For production it's recommended to configure a different adapter
-# at the `config/runtime.exs`.
-config :pento, Pento.Mailer, adapter: Swoosh.Adapters.Local
-
-# Swoosh API client is needed for adapters other than SMTP.
-config :swoosh, :api_client, false
+  render_errors: [
+    formats: [html: B1Web.ErrorHTML, json: B1Web.ErrorJSON],
+    layout: false
+  ],
+  pubsub_server: B1.PubSub,
+  live_view: [signing_salt: "q0N9OeNQ"]
 
 # Configure esbuild (the version is required)
 config :esbuild,
-  version: "0.14.29",
+  version: "0.14.41",
   default: [
     args:
       ~w(js/app.js --bundle --target=es2017 --outdir=../priv/static/assets --external:/fonts/* --external:/images/*),
     cd: Path.expand("../assets", __DIR__),
     env: %{"NODE_PATH" => Path.expand("../deps", __DIR__)}
+  ]
+
+# Configure tailwind (the version is required)
+config :tailwind,
+  version: "3.1.8",
+  default: [
+    args: ~w(
+      --config=tailwind.config.js
+      --input=css/app.css
+      --output=../priv/static/assets/app.css
+    ),
+    cd: Path.expand("../assets", __DIR__)
   ]
 
 # Configures Elixir's Logger
