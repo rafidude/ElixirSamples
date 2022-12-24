@@ -22,7 +22,7 @@ defmodule Pento.AccountsTest do
       refute Accounts.get_user_by_email_and_password("unknown@example.com", "hello world!")
     end
 
-    test "does not return the user if the password is not valid" do
+    test "does not return the user if the password is short" do
       user = user_fixture()
       refute Accounts.get_user_by_email_and_password(user.email, "invalid")
     end
@@ -63,7 +63,7 @@ defmodule Pento.AccountsTest do
 
       assert %{
                email: ["must have the @ sign and no spaces"],
-               password: ["should be at least 12 character(s)"]
+               password: ["should be at least 6 character(s)"]
              } = errors_on(changeset)
     end
 
@@ -262,12 +262,12 @@ defmodule Pento.AccountsTest do
     test "validates password", %{user: user} do
       {:error, changeset} =
         Accounts.update_user_password(user, valid_user_password(), %{
-          password: "not valid",
+          password: "short",
           password_confirmation: "another"
         })
 
       assert %{
-               password: ["should be at least 12 character(s)"],
+               password: ["should be at least 6 character(s)"],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end
@@ -471,12 +471,12 @@ defmodule Pento.AccountsTest do
     test "validates password", %{user: user} do
       {:error, changeset} =
         Accounts.reset_user_password(user, %{
-          password: "not valid",
+          password: "short",
           password_confirmation: "another"
         })
 
       assert %{
-               password: ["should be at least 12 character(s)"],
+               password: ["should be at least 6 character(s)"],
                password_confirmation: ["does not match password"]
              } = errors_on(changeset)
     end
