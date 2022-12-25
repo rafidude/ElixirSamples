@@ -10,13 +10,14 @@ defmodule LightSwitchWeb.LightLive do
     {:ok, socket}
   end
 
-  def render(assigns) do
-    ~H"""
-    <h1>Light is <%= @light_bulb_status %>.</h1>
-    <button phx-click="on" @on_button_status>On</button>
-    <button phx-click="off" @off_button_status>Off</button>
-    """
-  end
+  # rendering is moved to light_live.html.heex
+  # def render(assigns) do
+  #   ~H"""
+  #   <h1>Light is <%= @light_bulb_status %>.</h1>
+  #   <button phx-click="on" @on_button_status>On</button>
+  #   <button phx-click="off" @off_button_status>Off</button>
+  #   """
+  # end
 
   def handle_event("on", _value, socket) do
     socket =
