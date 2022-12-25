@@ -1,3 +1,23 @@
 <h1>Light is <%= @light_bulb_status %>.</h1>
 <button phx-click="on" @on_button_status>On</button>
 <button phx-click="off" @off_button_status>Off</button>
+
+<.greet name="Jane" />
+<.button>
+  This renders <strong>inside</strong> the button!
+</.button>
+<.unordered_list let={entry} entries={~w(apple banana cherry)}>
+  I like <%= entry %>
+</.unordered_list>
+<.modal>
+  <:header>
+    This is the top of the modal.
+  </:header>
+
+  This is the body - everything not in a
+  named slot goes to @inner_block.
+
+  <:footer>
+    <button>Save</button>
+  </:footer>
+</.modal>

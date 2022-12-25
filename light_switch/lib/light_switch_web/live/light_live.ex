@@ -1,5 +1,6 @@
 defmodule LightSwitchWeb.LightLive do
   use Phoenix.LiveView
+  import MyComponent
 
   def mount(_params, _session, socket) do
     socket =
