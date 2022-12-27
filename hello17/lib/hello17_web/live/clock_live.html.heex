@@ -1,0 +1,19 @@
+<h1 class="text-6xl font-normal leading-normal mt-0 mb-2 text-pink-800">
+<%= "Time is #{@now}" %>
+</h1>
+
+<.greet name="Jane1" />
+<.greet name="Jane2" />
+<.celebrate name={"Genevieve"} age={34} />
+<.button1>
+  This renders <strong>inside</strong> the button!
+</.button1>
+<.unordered_list :let={fruit} entries={~w(apples bananas cherries)}>
+  I like <%= fruit %>!
+</.unordered_list>
+<.modal1>
+  This is the body, everything not in a named slot is rendered in the default slot.
+  <:footer>
+    This is the bottom of the modal.
+  </:footer>
+</.modal1>

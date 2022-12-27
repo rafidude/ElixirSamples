@@ -19,6 +19,15 @@ defmodule Hello17Web.Router do
 
     get "/", PageController, :home
     live "/counter", PageLive
+    live "/light", LightLive
+    live "/clock", ClockLive
+
+    live "/todo_items", TodoItemLive.Index, :index
+    live "/todo_items/new", TodoItemLive.Index, :new
+    live "/todo_items/:id/edit", TodoItemLive.Index, :edit
+
+    live "/todo_items/:id", TodoItemLive.Show, :show
+    live "/todo_items/:id/show/edit", TodoItemLive.Show, :edit
   end
 
   # Other scopes may use custom stacks.

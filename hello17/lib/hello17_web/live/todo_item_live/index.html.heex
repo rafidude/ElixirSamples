@@ -1,0 +1,39 @@
+<.header>
+  Listing Todo items
+  <:actions>
+    <.link patch={~p"/todo_items/new"}>
+      <.button>New Todo item</.button>
+    </.link>
+  </:actions>
+</.header>
+
+<.table id="todo_items" rows={@todo_items} row_click={&JS.navigate(~p"/todo_items/#{&1}")}>
+  <:col :let={todo_item} label="Text"><%= todo_item.text %></:col>
+  <:action :let={todo_item}>
+    <div class="sr-only">
+      <.link navigate={~p"/todo_items/#{todo_item}"}>Show</.link>
+    </div>
+    <.link patch={~p"/todo_items/#{todo_item}/edit"}>Edit</.link>
+  </:action>
+  <:action :let={todo_item}>
+    <.link phx-click={JS.push("delete", value: %{id: todo_item.id})} data-confirm="Are you sure?">
+      Delete
+    </.link>
+  </:action>
+</.table>
+
+<.modal
+  :if={@live_action in [:new, :edit]}
+  id="todo_item-modal"
+  show
+  on_cancel={JS.navigate(~p"/todo_items")}
+>
+  <.live_component
+    module={Hello17Web.TodoItemLive.FormComponent}
+    id={@todo_item.id || :new}
+    title={@page_title}
+    action={@live_action}
+    todo_item={@todo_item}
+    navigate={~p"/todo_items"}
+  />
+</.modal>
